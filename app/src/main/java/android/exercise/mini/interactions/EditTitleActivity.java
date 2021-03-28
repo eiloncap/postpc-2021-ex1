@@ -13,6 +13,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EditTitleActivity extends AppCompatActivity {
 
+  private static final String inputString = "Page title here";
+  private boolean isEditing = false;
+
   // TODO:
   //  you can add fields to this class. those fields will be accessibly inside any method
   //  (like `onCreate()` and `onBackPressed()` methods)
@@ -36,9 +39,9 @@ public class EditTitleActivity extends AppCompatActivity {
     // setup - start from static title with "edit" button
     fabStartEdit.setVisibility(View.VISIBLE);
     fabEditDone.setVisibility(View.GONE);
-    textViewTitle.setText("Page title here");
+    textViewTitle.setText(inputString);
     textViewTitle.setVisibility(View.VISIBLE);
-    editTextTitle.setText("Page title here");
+    editTextTitle.setText(inputString);
     editTextTitle.setVisibility(View.GONE);
 
     // handle clicks on "start edit"
@@ -60,6 +63,7 @@ public class EditTitleActivity extends AppCompatActivity {
       fabEditDone.setVisibility(View.VISIBLE);
       textViewTitle.setVisibility(View.GONE);
       editTextTitle.setVisibility(View.VISIBLE);
+      isEditing = true;
 
     });
 
@@ -82,11 +86,19 @@ public class EditTitleActivity extends AppCompatActivity {
       textViewTitle.setText(editTextTitle.getText());
       textViewTitle.setVisibility(View.VISIBLE);
       editTextTitle.setVisibility(View.GONE);
+      isEditing = false;
     });
   }
 
   @Override
   public void onBackPressed() {
+
+    // find all views
+    FloatingActionButton fabStartEdit = findViewById(R.id.fab_start_edit);
+    FloatingActionButton fabEditDone = findViewById(R.id.fab_edit_done);
+    TextView textViewTitle = findViewById(R.id.textViewPageTitle);
+    EditText editTextTitle = findViewById(R.id.editTextPageTitle);
+
     // BACK button was clicked
     /*
     TODO:
@@ -103,6 +115,18 @@ public class EditTitleActivity extends AppCompatActivity {
     to work with views, you will need to find them first.
     to find views call `findViewById()` in a same way like in `onCreate()`
      */
+    if(isEditing) {
+      editTextTitle.setVisibility(View.GONE);
+      editTextTitle.setText(inputString);
+      textViewTitle.setText(inputString);
+      textViewTitle.setVisibility(View.VISIBLE);
+      fabEditDone.setVisibility(View.GONE);
+      fabStartEdit.setVisibility(View.VISIBLE);
+      isEditing = false;
+    }
+    else {
+      super.onBackPressed();
+    }
   }
 
 }
