@@ -24,6 +24,8 @@ public class EditTitleActivity extends AppCompatActivity {
     EditText editTextTitle;
 
     private void switchFabs(FloatingActionButton toView, FloatingActionButton toUnview) {
+        // switches between two buttons with some sweet animation
+
         // view toUnview button (rotation animation)
         toUnview.animate()
                 .alpha(0f)
@@ -103,7 +105,6 @@ public class EditTitleActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // BACK button was clicked
-
         if (isEditing) {
             editTextTitle.setText(inputString);
             fabEditDone.callOnClick();
